@@ -1,10 +1,11 @@
 <template>
-  <div class="welcome-text">welcome page</div>
+  <div class="welcome-text">Profile page</div>
 </template>
 
 <script>
 export default {
-}
+  middleware: ['auth']
+};
 </script>
 
 <style>

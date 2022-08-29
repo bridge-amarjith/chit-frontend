@@ -1,9 +1,11 @@
 <template>
-  <div class="welcome-text">Profile page</div>
+  <div class="welcome-text">Dashboard page</div>
 </template>
 
 <script>
-export default {};
+export default {
+  middleware: ['auth']
+};
 </script>
 
 <style>
