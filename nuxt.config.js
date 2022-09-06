@@ -21,12 +21,12 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@static/assets/css/main.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/vuelidate.js',
-    '~/plugins/vuetify.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -34,13 +34,13 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxt/postcss8'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    '@nuxtjs/vuetify',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
@@ -60,10 +60,6 @@ export default {
           property: 'token',
           propertyName: false
         },
-        user: {
-          property: 'user',
-          // autoFetch: true
-        },
         endpoints: {
           login: { url: 'login', method: 'post', propertyName: 'token' },
           user: { url: 'me', method: 'get', propertyName: '' },
@@ -74,5 +70,11 @@ export default {
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
   }
 }

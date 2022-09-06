@@ -1,12 +1,16 @@
 <template>
-  <div class="container mt-5">
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-7">
-        <b-card>
-          <div class="d-flex justify-content-center">
-            <h3>Register</h3>
-          </div>
-
+  <section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+        <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
+        SmartChit
+      </a>
+      <div
+        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+            Sign up to your account
+          </h1>
           <b-form @submit.prevent="userReg">
             <div class="mt-2">
               <b-form-input id="name" v-model="regForm.name" placeholder="Enter name" :class="{
@@ -47,26 +51,21 @@
               <span v-if="!$v.regForm.phoneNo.required">PhoneNo is Required</span>
               <span v-if="!$v.regForm.phoneNo.minLength">Minimum 10 digits needed</span>
             </div>
-            <div class="d-flex justify-content-end">
-              <b-button type="submit" class="mt-2">Submit</b-button>
+            <div class="mt-2">
+              <button type="submit"
+                class="w-full text-white bg-zinc-900 hover:bg-primary-700 rounded-lg text-sm px-5 py-2.5 text-center">Sign
+                up</button>
             </div>
+
+            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+              Allready have an account? <NuxtLink to="/login"
+                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</NuxtLink>
+            </p>
           </b-form>
-        </b-card>
+        </div>
       </div>
     </div>
-    <div class="text-center ma-2">
-      <v-snackbar v-model="snackbar">
-        {{  snackbartext  }}
-
-        <template v-slot:action="{ attrs }">
-          <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
-    </div>
-  </div>
-
+  </section>
 </template>
 <script>
 import { required, minLength, email } from "vuelidate/lib/validators";
@@ -80,9 +79,6 @@ export default {
         phoneNo: "",
       },
       submitted: false,
-      snackbar: false,
-      snackbartext: '',
-      snackTime: 2000,
     };
   },
   validations: {
@@ -94,11 +90,6 @@ export default {
     }
   },
   methods: {
-    errorhandler($err) {
-      this.snackbar = true
-      this.snackbartext = $err
-      this.color = 'error'
-    },
     async userReg() {
       this.submitted = true;
       this.$v.$touch()
@@ -107,9 +98,6 @@ export default {
       } else {
         let res = await this.$axios.post('/registration', this.regForm)
           .then(() => {
-            this.snackbar = true
-            this.snackbartext = 'Registerd Successfully'
-            this.color = 'success'
             this.$router.push("/login");
           })
           .catch((error) => {
